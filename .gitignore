@@ -6,6 +6,8 @@
 
 ### VisualStudioCode ###
 .vscode
+jsconfig.json
+
 
 ### Vagrant ###
 .vagrant/
