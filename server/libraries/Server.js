@@ -5,13 +5,16 @@ var express = require("express");
 //A simple wrapper of httpServer and express
 //For automatisation of starting a server (middleware, routing, lib, etc...)
 
+//globals
+var __App;
+var __Router;
+var __Config;
+
 module.exports = class Server {
 	constructor(config) {
-		this.__App = express();//express app
-		this.__Router = express.Router();//express routing
-		this.__Config = config;//all environment params
+		this.setGlobals(config);
 		
-		this.middleWareLoader = new (require(this.__Config.SERVER_MIDDLEWARES_LOADER_PATH))(this);
+		this.middleWareLoader = new (require(__Config.SERVER_MIDDLEWARES_LOADER_PATH))(this);
 	}
 	
 	start(callback) {
@@ -26,10 +29,16 @@ module.exports = class Server {
 		
 		//Create and start http server
 		this.HttpServer = http.createServer(this.__App);
-		this.HttpServer.listen(this.__Config.PORT, this.__Config.IP_ADDRESS, callback);
+		this.HttpServer.listen(__Config.PORT, __Config.IP_ADDRESS, callback);
 	}
 	
 	loadRoutes() {
 		
+	}
+	
+	setGlobals(config) {
+		__App = express();//express app
+		__Router = express.Router();//express routing
+		__Config = config;//all environment params
 	}
 }
