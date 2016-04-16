@@ -1,44 +1,49 @@
 "use strict";
 var http = require("http");
 var express = require("express");
+var mongoose = require("mongoose");
 
 //A simple wrapper of httpServer and express
 //For automatisation of starting a server (middleware, routing, lib, etc...)
 
-//globals
-var __App;
-var __Router;
-var __Config;
-
 module.exports = class Server {
 	constructor(config) {
-		this.setGlobals(config);
+		this.config = config;
+		this.defineGlobals();
 		
-		this.middleWareLoader = new (require(__Config.SERVER_MIDDLEWARES_LOADER_PATH))(this);
+		var MiddlewareLoader = require(__Config.SERVER_MIDDLEWARES_LOADER_PATH);
+		this.middlewareLoader = new MiddlewareLoader();
+		
+		var SchemasLoader = require(__Config.SERVER_SCHEMAS_LOADER_PATH);
+		this.schemasLoader = new SchemasLoader();
 	}
 	
 	start(callback) {
-		//load all middlewares who need to be before the routing
-		this.middleWareLoader.loadPreMiddlewares();
+		//Connect to mongo via mongoose
+		mongoose.connect(__Config.MONGO_ADDRESS);
+		//load mongoose schemas, models are in __Models
+		this.schemasLoader.load();
 		
-		//load routing
-		this.loadRoutes();
-		
-		//load all middlewares who need to be before the routing
-		this.middleWareLoader.loadPostMiddlewares();
+		//load middlewares including routing
+		this.middlewareLoader.load();
 		
 		//Create and start http server
-		this.HttpServer = http.createServer(this.__App);
+		this.HttpServer = http.createServer(__App);
 		this.HttpServer.listen(__Config.PORT, __Config.IP_ADDRESS, callback);
 	}
 	
-	loadRoutes() {
+	//globals
+	defineGlobals() {
+		GLOBAL.__Config = this.config;//all environment params
+		GLOBAL.__App = express();//express app
+		GLOBAL.__Models = {};//for mongoose
 		
-	}
-	
-	setGlobals(config) {
-		__App = express();//express app
-		__Router = express.Router();//express routing
-		__Config = config;//all environment params
+		GLOBAL.__Libraries = {
+			"ScriptLoader" : require(__Config.SERVER_SCRIPT_LOADER_PATH)
+		}
+		
+		var RessourcesLoader = require(__Config.SERVER_RESSOURCES_LOADER_PATH);
+		var ressourcesLoader = new RessourcesLoader();
+		GLOBAL.__Ressources = ressourcesLoader.load();
 	}
 }
