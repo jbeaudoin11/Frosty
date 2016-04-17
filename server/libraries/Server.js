@@ -34,13 +34,9 @@ module.exports = class Server {
 	
 	//globals
 	defineGlobals() {
-		GLOBAL.__Config = this.config;//all environment params
 		GLOBAL.__App = express();//express app
+		GLOBAL.__Config = this.config;//all environment params
 		GLOBAL.__Models = {};//for mongoose
-		
-		GLOBAL.__Libraries = {
-			"ScriptLoader" : require(__Config.SERVER_SCRIPT_LOADER_PATH)
-		}
 		
 		var RessourcesLoader = require(__Config.SERVER_RESSOURCES_LOADER_PATH);
 		var ressourcesLoader = new RessourcesLoader();

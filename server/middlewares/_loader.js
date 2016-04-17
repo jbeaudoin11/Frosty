@@ -5,13 +5,7 @@ module.exports = class MiddlewareLoader {
 	constructor() {}
 	
 	load() {
-		//order is important !
-		[
-			"helmet.js",
-			"expressStatic.js",
-			"webpack.js",
-			"routing.js",
-		].forEach((filename) => {
+		(__Config.MIDDLEWARES || []).forEach((filename) => {
 			var fn = require(`./${filename}`);
 			fn();
 		})
