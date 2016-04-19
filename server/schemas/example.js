@@ -1,10 +1,13 @@
 "use strict";
-//Very simple example of file
+//Very simple example schema
 
-//name in __Model
-exports.name = "Example";
+var mongoose = require("mongoose");
+var Schema = mongoose.Schema;
 
-//Schema def
-exports.schema = {
-	"name" : {"type" : String}
-};
+module.exports = () => {
+	__Models.Example = mongoose.model("example", new Schema({
+		"name" : {"type" : String}
+	}, {
+		"strict" : true,
+	}))
+}

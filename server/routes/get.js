@@ -1,4 +1,4 @@
-var Passport = require(__Config.SERVER_LIBRARIE_PASSPORT_PATH);
+var Passport = require(__Config.LIBRARIE_PASSPORT_PATH);
 
 module.exports = [
 	//some route exemple
@@ -15,6 +15,12 @@ module.exports = [
 	{"url" : "/auth/success", "callbacks" : [__Ressources.passport.loggedIn]},
 	{"url" : "/auth/failed", "callbacks" : [__Ressources.passport.loginFailed]},
 	{"url" : "/auth/logout", "callbacks" : [__Ressources.passport.logout]},
+	
+	
+	{"url" : "/paypal/payment/paypal", "callbacks" : [__Ressources.paypal.paymentWithPaypalAccount]},
+	{"url" : "/paypal/payment/creditCard", "callbacks" : [__Ressources.paypal.paymentWithCreditCard]},
+	{"url" : "/paypal/return", "callbacks" : [__Ressources.paypal.return]},
+	{"url" : "/paypal/cancel", "callbacks" : [__Ressources.paypal.cancel]},
 	
 	// {"url" : "/test1", "callbacks" : [(req, res) => {
 	// 	req.session.t = 1;

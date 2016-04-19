@@ -1,7 +1,7 @@
 "use strict";
 var passport = require("passport");
 
-var Passport = require(__Config.SERVER_LIBRARIE_PASSPORT_PATH);
+var Passport = require(__Config.LIBRARIE_PASSPORT_PATH);
 
 module.exports = () => {
 	Passport.initStrategies();

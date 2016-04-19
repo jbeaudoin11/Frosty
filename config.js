@@ -62,15 +62,16 @@ exports.MIDDLEWARES = [
 ];
 
 //LIBRARIES
-exports.SERVER_LIBRARIE_SCRIPT_LOADER_PATH = `${this.SERVER_LIBRARIES_PATH}/ScriptLoader.js`;
-exports.SERVER_LIBRARIE_PASSPORT_PATH = `${this.SERVER_LIBRARIES_PATH}/Passport.js`;
+exports.LIBRARIE_SCRIPT_LOADER_PATH = `${this.SERVER_LIBRARIES_PATH}/ScriptLoader.js`;
+exports.LIBRARIE_PASSPORT_PATH = `${this.SERVER_LIBRARIES_PATH}/Passport.js`;
+exports.LIBRARIE_KEY_MAPPING_PATH = `${this.SERVER_LIBRARIES_PATH}/KeyMapping.js`;
 
 //WEBPACK DEV
 exports.WEBPACK_CONFIG_PATH = __dirname + "/webpack.config.js";
 exports.WEBPACK_OUTPUT_PUBLIC_PATH = this.HTTP_ADDRESS + "/scripts/";
 
 //EXPRESS
-exports.SESSION_SECRET = "eb7ad9d0dc634b2abc73c821fc6448ac"
+exports.SESSION_SECRET = "eb7ad9d0dc634b2abc73c821fc6448ac";
 exports.EXPRESS_SESSION_CONFIG = {
 	"secret" : this.SESSION_SECRET,
 	"cookie" : {
@@ -79,7 +80,14 @@ exports.EXPRESS_SESSION_CONFIG = {
 	},
 	"resave" : true,
 	"saveUninitialized" : true,
-}
+};
 
 //PASSPORT
 exports.PASSPORT_CONFIG_PATH = `${this.SERVER_METADATA_PATH}/passport.js`;
+
+//PAYPAL
+exports.PAYPAL_CONFIG_PATH = `${this.SERVER_METADATA_PATH}/paypal.js`;
+exports.PAYPAL_TRANSACTIONS_PATH = `${this.SERVER_METADATA_PATH}/transactions.js`;
+exports.PAYPAL_MODE = "sandbox";//sandbox or live
+exports.PAYPAL_RETURN_URL = `${this.HTTP_ADDRESS}/paypal/return`;
+exports.PAYPAL_CANCEL_URL = `${this.HTTP_ADDRESS}/paypal/cancel`;

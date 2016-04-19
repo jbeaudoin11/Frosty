@@ -19,6 +19,7 @@ exports.facebook = {
 	},
 	
 	"strategyConfig" : {
+		//need a better (secure) way to store thoses infos
 		"clientID" : "1579685022360009",
 		"clientSecret" : "76a38030c8d39bc3cac1322e5b357a62",
 		"callbackURL" : `${__Config.HTTP_ADDRESS}/auth/facebook/callback`,

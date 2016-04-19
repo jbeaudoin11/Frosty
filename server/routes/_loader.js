@@ -4,7 +4,7 @@
 var path = require("path");
 var colors = require("colors");
 
-var ScriptLoader = require(__Config.SERVER_LIBRARIE_SCRIPT_LOADER_PATH);
+var ScriptLoader = require(__Config.LIBRARIE_SCRIPT_LOADER_PATH);
 
 module.exports = class RoutesLoader {
 	constructor(router){
