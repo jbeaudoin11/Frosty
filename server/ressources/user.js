@@ -33,7 +33,6 @@ exports.rebuildUserFromProviderData = (user, callback) => {
 
 exports.findOrCreateUserByProviderId = (providerId, provider, providerData, callback) => {
 	// search or create a user from a provider
-	//callback(err, id);
 	
 	User.findOneAndUpdate({
 		providerId,
@@ -42,7 +41,7 @@ exports.findOrCreateUserByProviderId = (providerId, provider, providerData, call
 	}, {
 		"$set" : {
 			providerData
-		}
+	}
 	}, {
 		"new" : true,
 	})
@@ -53,7 +52,7 @@ exports.findOrCreateUserByProviderId = (providerId, provider, providerData, call
 			//User is found, let send his info
 			callback(null, this.filterDataFromUserToBeSend(user));
 			
-			//TODO udapte uses's info with the new provider's data
+			//TODO udapte user's info with the new provider's data
 		} else {
 			//Create user
 			this.createUserFromProviderData(providerId, provider, providerData, callback);
@@ -61,7 +60,7 @@ exports.findOrCreateUserByProviderId = (providerId, provider, providerData, call
 	})
 };
 
-exports.createUserFromProvider = (providerId, procider, providerData, callback) => {
+exports.createUserFromProvider = (providerId, provider, providerData, callback) => {
 	//Create a user base on provider information
 	var user = User({
 		provider,
