@@ -8,12 +8,13 @@ var Schema = require("mongoose").Schema;
 var ScriptLoader = require(__Config.LIBRARIE_SCRIPT_LOADER_PATH);
 
 module.exports = class SchemasLoader {
-	constructor(){}
+	constructor(){
+		
+	}
 	
 	load() {
-		var schemas = {};
-				
 		ScriptLoader(__dirname, [__filename].concat(__Config.SCHEMAS_EXCLUDE_FILES || []), (filename) => {
+			// console.log(filename)
 			require(`./${filename}`)();
 		})
 	}

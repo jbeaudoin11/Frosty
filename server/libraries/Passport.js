@@ -8,7 +8,6 @@ var passportConfig = require(__Config.PASSPORT_CONFIG_PATH);
 var FacebookStrategy = require("passport-facebook").Strategy;
 var TwitterStrategy = require("passport-twitter").Strategy;
 
-
 exports.buildAuthLoginMiddleware = (strategy) => {
 	var strat = passportConfig[strategy];
 	if(strat != undefined) {
@@ -53,9 +52,8 @@ exports.initStrategies = () => {
 
 this.findOrCreateUserById = (profile, callback) => {
 	var User = __Ressources.user;
-	var rebuiltUser = User.rebuildUserFromProvider(profile);
-	User.findOrCreateUserById(rebuiltUser.providerId, rebuiltUser.provider, rebuiltUser, (err, user) => {
-		
+	var rebuiltUser = User.rebuildUserFromProviderData(profile);
+	User.findOrCreateUserByProviderId(rebuiltUser.providerId, rebuiltUser.provider, rebuiltUser, (err, user) => {
 		//the same user as serializeUser(user, done)
 		callback(err, user);
 	})

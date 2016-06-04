@@ -4,10 +4,14 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
+var exampleScheam = new Schema({
+	"name" : {"type" : String}
+}, {
+	"strict" : true,
+})
+
 module.exports = () => {
-	__Models.Example = mongoose.model("example", new Schema({
-		"name" : {"type" : String}
-	}, {
-		"strict" : true,
-	}))
+	__Schemas.example = exampleSchema;
+	
+	mongoose.model("Example", exampleScheam)
 }

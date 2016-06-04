@@ -1,9 +1,11 @@
 "use strict";
 
 var mongoose = require("mongoose");
+var User = mongoose.model("User");
 
-//rebuild a user from PassportJS information
-exports.rebuildUserFromProvider = (user, callback) => {
+exports.rebuildUserFromProviderData = (user, callback) => {
+	//rebuild a user from PassportJS information
+	
 	var newUser = {
 		"providerId" : user.id,
 		"name" : user.displayName,
@@ -19,30 +21,68 @@ exports.rebuildUserFromProvider = (user, callback) => {
 	}
 	
 	// remove undefined fields
-	return JSON.parse(JSON.stringify(newUser));
+	user = JSON.parse(JSON.stringify(newUser));
+	
+	if(callback) {
+		callback(null, user);
+	} else {
+		return user;
+	}
 };
 
-// search or create a user from a provider
-exports.findOrCreateUserById = (providerId, provider, providerData, callback) => {
-	__Models.User.findOneAndUpdate({providerId, provider, "active" : true}, {"$set" : {providerData}}, "id", (err, user) => {
+
+exports.findOrCreateUserByProviderId = (providerId, provider, providerData, callback) => {
+	// search or create a user from a provider
+	//callback(err, id);
+	
+	User.findOneAndUpdate({
+		providerId,
+		provider,
+		"active" : true
+	}, {
+		"$set" : {
+			providerData
+		}
+	}, {
+		"new" : true,
+	})
+	.exec((err, user) => {
 		if(err) {
-			//an error occurred
+			callback(err);
+		} else if(user) {
+			//User is found, let send his info
+			callback(null, this.filterDataFromUserToBeSend(user));
+			
+			//TODO udapte uses's info with the new provider's data
+		} else {
+			//Create user
+			this.createUserFromProviderData(providerId, provider, providerData, callback);
+		}
+	})
+};
+
+exports.createUserFromProvider = (providerId, procider, providerData, callback) => {
+	//Create a user base on provider information
+	var user = User({
+		provider,
+		providerId,
+		providerData,
+		"insertedDate" : Date.now(),
+	});
+	user.save((err, user) => {
+		if(err){
 			callback(err);
 		} else {
-			if(user) {
-				//user is found
-				callback(err, {"id" : user.id});
-			} else {
-				// need to create the user
-				__Models.User.create({
-					provider,
-					providerId,
-					providerData,
-					"insertedDate" : "" + Date.now(),
-				}, (err, u) => {
-					callback(err, {"id" : u.id});
-				});
-			}
+			//Send the user's info
+			callback(null, this.filterDataFromUserToBeSend(user));
 		}
 	});
-};
+}
+
+exports.filterDataFromUserToBeSend = (user) => {
+	//Let filter the data to send
+	
+	return {
+		"id" : user.id
+	}
+}

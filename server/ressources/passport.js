@@ -1,15 +1,20 @@
 "use strict";
-var passport = require("passport");
+
+var mongoose = require("mongoose");
+var User = mongoose.model("User");
+
 
 exports.loggedIn = (req, res) => {
 	// console.log(req.session)
 	var user = req.user;
-	__Models.User.findOne({"_id" : user.id}, (err, u) => {
+	
+	User.findById(user.id)
+	.exec((err, user) => {
 		
 		if(err) {
 			res.json({"err" : err});
 		} else {		
-			res.send(JSON.stringify(u, null));
+			res.send(JSON.stringify(user, null));
 		}
 			
 	})

@@ -2,18 +2,20 @@
 //example of ressources usage with Mongoose
 
 var mongoose = require("mongoose");
+var Example = mongoose.model("Example");
 
 exports.getExamples = (req, res) => {
-	__Models.Example.find({}, (err, docs) => {
+	Example.find({})
+	.exec((err, docs) => {
 		res.json(docs)
-	})
+	});
 }
 
 exports.addExample = (req, res) => {
-	var e = new __Models.Example({
+	var example = new Example({
 		"name" : req.params.name,
 	})
-	e.save((err) => {
+	example.save((err) => {
 		if(err) {
 			console.log("ERROR : " + err);
 		
@@ -27,5 +29,5 @@ exports.addExample = (req, res) => {
 				"data" : e
 			})
 		}
-	})
+	});
 }

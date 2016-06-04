@@ -6,9 +6,10 @@ var path = require("path");
 
 module.exports = (dirname, excludeFiles, callback) => {
 	excludeFiles = excludeFiles.map((filename) => path.basename(filename));
+
+	var files = fs.readdirSync(dirname).filter((filename) => {
+		return excludeFiles.indexOf(filename) < 0;
+	});
 	
-	var files = fs.readdirSync(dirname).filter((filename) => excludeFiles.indexOf(filename) < 0);
-	files.forEach((filename, index) => {
-		callback(filename, index)
-	})
+	files.forEach(callback)
 } 
