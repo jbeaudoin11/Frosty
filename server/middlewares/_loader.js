@@ -1,8 +1,12 @@
 "use strict";
-//load all middleware in order
+//Load all middlewares in order
+
+//Can't use ScriptLoader cause order is very important
 
 module.exports = class MiddlewareLoader {
-	constructor() {}
+	constructor() {
+		
+	}
 	
 	load() {
 		(__Config.MIDDLEWARES || []).forEach((filename) => {

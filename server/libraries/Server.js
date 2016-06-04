@@ -10,10 +10,13 @@ module.exports = class Server {
 	constructor(config) {
 		this.config = config;
 		
-		this.load();
+		this.init();
 	}
 	
 	start(callback) {
+		//Start the http server
+		//Carefull, loading order is important !
+		
 		//Connect to mongo via mongoose
 		mongoose.connect(__Config.MONGO_ADDRESS);
 		
@@ -31,9 +34,8 @@ module.exports = class Server {
 		this.HttpServer.listen(__Config.PORT, __Config.IP_ADDRESS, callback);
 	}
 	
-	load() {
-		//Define some globals
-		//And load some script to be use
+	init() {
+		//Define some globals and load some script to be use
 		
 		GLOBAL.__App = express();//express app
 		GLOBAL.__Config = this.config;//all environment params

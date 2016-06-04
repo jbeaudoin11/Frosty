@@ -9,8 +9,11 @@ var FacebookStrategy = require("passport-facebook").Strategy;
 var TwitterStrategy = require("passport-twitter").Strategy;
 
 exports.buildAuthLoginMiddleware = (strategy) => {
+	//Build the middleware, for a strategy,  to use when login 
+	
 	var strat = passportConfig[strategy];
-	if(strat != undefined) {
+	
+	if(strat != null) {
 		return passport.authenticate(strategy, {"scope" : strat.scope || []});
 	} else {
 		throw new Error(`PASSPORT STRATEGY [${strategy}] IS NOT DEFINE`.red);
@@ -18,9 +21,11 @@ exports.buildAuthLoginMiddleware = (strategy) => {
 }
 
 exports.buildAuthCallbackMiddleware = (strategy) => {
+	//Build the callback middleware, for a strategy, to use when the login is done
+	
 	var strat = passportConfig[strategy];
 	
-	if(strat != undefined) {
+	if(strat != null) {
 		return passport.authenticate(strategy, strat.middlewareConfig);
 	} else {
 		throw new Error(`PASSPORT STRATEGY [${strategy}] IS NOT DEFINE`.red);
