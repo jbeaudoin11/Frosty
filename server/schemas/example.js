@@ -4,14 +4,35 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
-var exampleScheam = new Schema({
+var exampleSchema = new Schema({
 	"name" : {"type" : String}
 }, {
 	"strict" : true,
 })
 
+/*
+	//Complete the Schema if needed like helper methods, etc...
+	exampleSchema.methods.findTest = function(callback) {
+		return this.model
+			.find({"name" : "Test"})
+			.exec(callback);
+	}
+
+	//Call it with the model
+	var Example = mongoose.model("Example", exampleSchema);
+	Example.findTest(function(data) {
+		...
+	});
+*/
+
+//Must export a function to load the Schema
 module.exports = () => {
+	//Use to register the model of the Schema
+
+	//Add the Schema to __Schemas
 	__Schemas.example = exampleSchema;
 	
-	mongoose.model("Example", exampleScheam)
+	//Register the Schema as a model
+	var Example = mongoose.model("Example", exampleSchema);
+
 }

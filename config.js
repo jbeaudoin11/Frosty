@@ -8,7 +8,12 @@ exports.IP_ADDRESS = "172.31.40.1";
 exports.HTTP_ADDRESS = "http://trava.ca:" + this.PORT;
 
 //MONGO
-exports.MONGO_ADDRESS = `mongodb://localhost:27017/trava`;
+exports.MONGOOSE_ADDRESS = `mongodb://localhost:27017/trava`;
+exports.MONGOOSE_OPTIONS = {
+	"server" : {
+		"poolSize" : 10,
+	}
+};
 
 //CLIENT
 exports.CLIENT_PATH = __dirname + "/client";
@@ -43,11 +48,8 @@ exports.RESSOURCES_EXCLUDE_FILES = [
 //SCHEMAS
 exports.SCHEMAS_EXCLUDE_FILES = [
 	// "user.js",
-	"example.js",
+	// "example.js",
 ];
-exports.SCHEMAS_CONFIG = {
-	"strict" : true,
-};
 
 //MIDDLEWARES
 //list of MW to load in the middlewares folder (order is important)

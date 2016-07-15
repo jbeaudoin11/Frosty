@@ -18,7 +18,7 @@ module.exports = class Server {
 		//Carefull, loading order is important !
 		
 		//Connect to mongo via mongoose
-		mongoose.connect(__Config.MONGO_ADDRESS);
+		mongoose.connect(__Config.MONGOOSE_ADDRESS, __Config.MONGOOSE_OPTIONS || {});
 		
 		//load mongoose schemas in __Schemas
 		this.schemasLoader.load();
@@ -36,6 +36,7 @@ module.exports = class Server {
 	
 	init() {
 		//Define some globals and load some script to be use
+		//Carefull, loading order is important !
 		
 		GLOBAL.__App = express();//express app
 		GLOBAL.__Config = this.config;//all environment params

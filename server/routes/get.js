@@ -2,26 +2,26 @@ var Passport = require(__Config.LIBRARIE_PASSPORT_PATH);
 
 module.exports = [
 	//Examples
-	// {"url" : "/examples", "callback" : __Ressources.example.getExamples},
-	// {"url" : "/addExample/:name", "callback" : __Ressources.example.addExample},
+	// {"url" : "/examples", "listeners" : __Ressources.example.getExamples},
+	// {"url" : "/addExample/:name", "listeners" : __Ressources.example.addExample},
 	
 	//Auth
-	{"url" : "/auth/facebook", "callbacks" : [Passport.buildAuthLoginMiddleware("facebook")]},
-	{"url" : "/auth/facebook/callback", "callbacks" : [Passport.buildAuthCallbackMiddleware("facebook")]},
+	{"url" : "/auth/facebook", "listeners" : [Passport.buildAuthLoginMiddleware("facebook")]},
+	{"url" : "/auth/facebook/callback", "listeners" : [Passport.buildAuthCallbackMiddleware("facebook")]},
 	
-	{"url" : "/auth/twitter", "callbacks" : [Passport.buildAuthLoginMiddleware("twitter")]},
-	{"url" : "/auth/twitter/callback", "callbacks" : [Passport.buildAuthCallbackMiddleware("twitter")]},
+	{"url" : "/auth/twitter", "listeners" : [Passport.buildAuthLoginMiddleware("twitter")]},
+	{"url" : "/auth/twitter/callback", "listeners" : [Passport.buildAuthCallbackMiddleware("twitter")]},
 	
-	{"url" : "/auth/success", "callbacks" : [__Ressources.passport.loggedIn]},
-	{"url" : "/auth/failed", "callbacks" : [__Ressources.passport.loginFailed]},
-	{"url" : "/auth/logout", "callbacks" : [__Ressources.passport.logout]},
+	{"url" : "/auth/success", "listeners" : [__Ressources.passport.loggedIn]},
+	{"url" : "/auth/failed", "listeners" : [__Ressources.passport.loginFailed]},
+	{"url" : "/auth/logout", "listeners" : [__Ressources.passport.logout]},
 	
 	//Paypal
-	{"url" : "/paypal/payment/paypal", "callbacks" : [__Ressources.paypal.paymentWithPaypalAccount]},
-	{"url" : "/paypal/payment/creditCard", "callbacks" : [__Ressources.paypal.paymentWithCreditCard]},
-	{"url" : "/paypal/return", "callbacks" : [__Ressources.paypal.return]},
-	{"url" : "/paypal/cancel", "callbacks" : [__Ressources.paypal.cancel]},
+	{"url" : "/paypal/payment/paypal", "listeners" : [__Ressources.paypal.paymentWithPaypalAccount]},
+	{"url" : "/paypal/payment/creditCard", "listeners" : [__Ressources.paypal.paymentWithCreditCard]},
+	{"url" : "/paypal/return", "listeners" : [__Ressources.paypal.return]},
+	{"url" : "/paypal/cancel", "listeners" : [__Ressources.paypal.cancel]},
 	
 	//Test
-	{"url" : "/test", "callbacks" : [__Ressources.test.test]},
+	{"url" : "/test", "listeners" : [__Ressources.test.test]},
 ]

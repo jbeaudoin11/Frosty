@@ -7,20 +7,20 @@
 // 	}
 // }
 
-//if the id doesnt exist return null
+//if the id doesnt exist return id
 exports.buildGetById = (map) => {
 	return (id) => {
 		var elem = map[id];
 		if(elem) {
 			return JSON.parse(JSON.stringify(elem))
 		} else {
-			return null;
+			return id;
 		}
 	}
 }
 
 
-//if the id doesnt exist put null in the array
+//if the id doesnt exist put the id in the array
 exports.buildGetByIds = (map) => {
 	return (ids) => {
 		return ids.map((id) => {
@@ -28,7 +28,7 @@ exports.buildGetByIds = (map) => {
 			if(elem) {
 				return JSON.parse(JSON.stringify(elem))
 			} else {
-				return null;
+				return id;
 			}
 		})
 	}

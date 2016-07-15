@@ -1,4 +1,5 @@
 "use strict";
+//User Schema to be use
 
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
@@ -24,7 +25,7 @@ var userSchema =  new Schema({
 	//auth
 	"provider" : {"type" : String, "index" : true, "required" : true},
 	"providerId" : {"type" : String, "index" : true, "required" : true},
-	"providerData" : { //used as default value if needed
+	"providerData" : { //should be use as default value if needed
 		"name"  : {"type" : String, "required" : true},
 		"email" : String,//can't be required because some providers doesn't give it
 		"profilePicture" : String,
@@ -40,9 +41,12 @@ var userSchema =  new Schema({
 	"strict" : true,
 });
 
-
 module.exports = () => {
+	//Use to register the model of the Schema
+
+	//Add the Schema to __Schemas
 	__Schemas.user = userSchema;
 	
+	//Register the Schema as a model
 	mongoose.model("User", userSchema);
 }
