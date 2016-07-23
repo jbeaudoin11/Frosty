@@ -14,7 +14,6 @@ module.exports = class SchemasLoader {
 	
 	load() {
 		ScriptLoader(__dirname, [__filename].concat(__Config.SCHEMAS_EXCLUDE_FILES || []), (filename) => {
-			// console.log(filename)
 			require(`./${filename}`)();
 		})
 	}

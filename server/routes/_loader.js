@@ -15,10 +15,12 @@ module.exports = class RoutesLoader {
 	}
 	
 	load() {
+		//Exclude this file
 		var excludeFiles = [
 			__filename,
 		]
 		
+		//Load every file in the folder
 		ScriptLoader(__dirname, excludeFiles, (filename) => {
 			var _routes = require(`./${filename}`);
 			
@@ -29,20 +31,29 @@ module.exports = class RoutesLoader {
 					//Test each route obj
 					this._testRouteObject(route, index)
 					.then(() => {
+
+						//Register listeners
 						this.router[path.basename(filename, ".js")](r.url, r.listeners);
 					})
-					.catch(this.loadingErrorHandler);
+					.catch(this.errorHandler);
 
 				})
 			} else {
-				//TODO trhow error
+				this.infoHandler({
+					"info" : `ROUTE [${filename}] IS EMPTY OR IS NOT AN ARRAY`,
+				})
 			}
 		})
 	}
 
-	loadingErrorHandler(err) {
-		//Handle loading errors
+	errorHandler(err) {
+		//Handle errors
 		logger.error(err.error.red);
+	}
+
+	infoHandler(info) {
+		//Handle warnings
+		logger.info(info.info.cyan);
 	}
 
 	_testRouteObject(route, index) {
@@ -62,7 +73,7 @@ module.exports = class RoutesLoader {
 				res();
 			} else {
 				rej({
-					"error" : `ROUTE [${index}] HAS NO URL`,
+					"error" : `ROUTE [#${index}] HAS NO URL`,
 				});
 			}
 		});
@@ -75,7 +86,7 @@ module.exports = class RoutesLoader {
 				res();
 			} else {
 				rej({
-					"error" : `ROUTE [${index} | ${r.url}], LISTENERS MUST BE AN ARRAY WITH AT LEAST 1 LISTENER`,
+					"error" : `ROUTE [#${index} | ${r.url}], LISTENERS MUST BE AN ARRAY WITH AT LEAST 1 LISTENER`,
 				});
 			}
 		});
@@ -95,7 +106,7 @@ module.exports = class RoutesLoader {
 				res();
 			} else {
 				rej({
-					"error" : `ROUTE [${index} | ${r.url}], LISTENER [${i}] IS UNDEFINED`,
+					"error" : `ROUTE [#${index} | ${r.url}], LISTENER [${i}] IS UNDEFINED`,
 				});
 			}
 		});

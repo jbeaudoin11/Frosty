@@ -1,3 +1,5 @@
+//Routes for GET methods
+
 var Passport = require(__Config.LIBRARIE_PASSPORT_PATH);
 
 module.exports = [
