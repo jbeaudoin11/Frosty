@@ -1,6 +1,7 @@
 //define some const to be used in different section of the server
 
 //INFO
+exports.APP_NAME = "Trava";
 exports.PORT = 4000;
 exports.PUBLIC_IP_ADDRESS = "52.38.255.2";
 exports.IP_ADDRESS = "172.31.40.1";
@@ -67,6 +68,7 @@ exports.MIDDLEWARES = [
 exports.LIBRARIE_SCRIPT_LOADER_PATH = `${this.SERVER_LIBRARIES_PATH}/ScriptLoader.js`;
 exports.LIBRARIE_PASSPORT_PATH = `${this.SERVER_LIBRARIES_PATH}/Passport.js`;
 exports.LIBRARIE_KEY_MAPPING_PATH = `${this.SERVER_LIBRARIES_PATH}/KeyMapping.js`;
+exports.LIBRARIE_LOGGER_PATH = `${this.SERVER_LIBRARIES_PATH}/Logger.js`;
 
 //WEBPACK DEV
 exports.WEBPACK_CONFIG_PATH = __dirname + "/webpack.config.js";

@@ -1,6 +1,8 @@
 "use strict";
 //Very simple example schema
 
+var Promise = require("promise");
+
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
@@ -35,4 +37,5 @@ module.exports = () => {
 	//Register the Schema as a model
 	var Example = mongoose.model("Example", exampleSchema);
 
+	return Promise.resolve();
 }

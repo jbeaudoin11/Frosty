@@ -1,5 +1,6 @@
 "use strict";
 //User Schema to be use
+var Promise = require("promise");
 
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
@@ -49,4 +50,6 @@ module.exports = () => {
 	
 	//Register the Schema as a model
 	mongoose.model("User", userSchema);
+
+	return Promise.resolve();
 }

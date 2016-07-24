@@ -1,8 +1,8 @@
 "use strict";
+//Define some function use by PassportJs
 
 var mongoose = require("mongoose");
 var User = mongoose.model("User");
-
 
 exports.loggedIn = (req, res) => {
 	//User is logged in

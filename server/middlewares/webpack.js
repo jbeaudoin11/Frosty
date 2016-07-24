@@ -23,7 +23,5 @@ module.exports = () => {
 		"log" : console.log
 	}))	
 
-	console.log("PASS");
-
-	return Promise.resovle();
+	return Promise.resolve();
 }

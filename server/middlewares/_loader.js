@@ -12,7 +12,7 @@ module.exports = class MiddlewareLoader {
 
 		return new Promise((res, rej) => {
 			var files = (__Config.MIDDLEWARES || []).map((filename) => {
-				return this.loader.bind(this);
+				return this.loader(filename);
 			});
 
 			if(files.length){
@@ -20,19 +20,11 @@ module.exports = class MiddlewareLoader {
 			} else {
 				res();
 			}
-		})
-		.then(() => {
-			console.log("DONE");
-		})
-		.catch((err) => {
-			console.log(err);
-		})
+		});
 	}
 
-	loader() {
-		var fn = require(`./${filename}`);
-
-		return fn();
+	loader(filename) {
+		return require(`./${filename}`)();
 	}
 }
 

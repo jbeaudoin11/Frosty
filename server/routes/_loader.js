@@ -4,7 +4,6 @@
 var Promise = require("promise");
 
 var path = require("path");
-var logger = require("winston");
 
 var ScriptLoader = require(__Config.LIBRARIE_SCRIPT_LOADER_PATH);
 
@@ -41,7 +40,7 @@ module.exports = class RoutesLoader {
 			} else {
 
 				//Warn the user
-				logger.info(`ROUTE FILE [${filename}] SKIPED, IT'S NOT AN ARRAY`.cyan);
+				__Log.warn(`ROUTE FILE [${filename}] SKIPED, IT'S NOT AN ARRAY`);
 
 				//Resolve
 				res();
