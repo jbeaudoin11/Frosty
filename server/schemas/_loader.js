@@ -1,6 +1,8 @@
 "use strict";
 //load all schemas to use in mongoose
 
+var logger = require("winston");
+
 var path = require("path");
 var mongoose = require("mongoose");
 var Schema = require("mongoose").Schema;
@@ -14,7 +16,14 @@ module.exports = class SchemasLoader {
 	
 	load() {
 		ScriptLoader(__dirname, [__filename].concat(__Config.SCHEMAS_EXCLUDE_FILES || []), (filename) => {
-			require(`./${filename}`)();
+			try {
+				require(`./${filename}`)();
+			} catch(err) {
+				logger.error({
+					"error" : `SCHEMAS [${filename}], CAN'T LOAD THE SCHEMA`.red,
+					"catch" : err
+				})
+			}
 		})
 	}
 }

@@ -1,4 +1,7 @@
 "use strict";
+//Use to add WebPack support to the server
+
+var Promise = require("promise");
 
 var webpack = require("webpack");
 var webpackDevMiddleware = require("webpack-dev-middleware");
@@ -19,4 +22,8 @@ module.exports = () => {
 	__App.use(webpackHotMiddleware(webpackCompiler, {
 		"log" : console.log
 	}))	
+
+	console.log("PASS");
+
+	return Promise.resovle();
 }

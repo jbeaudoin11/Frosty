@@ -4,12 +4,20 @@
 var fs = require("fs");
 var path = require("path");
 
-module.exports = (dirname, excludeFiles, callback) => {
+var Promise = require("promise");
+
+module.exports = (dirname, excludeFiles, loader) => {
 	excludeFiles = excludeFiles.map((filename) => path.basename(filename));
 
+	//Filter the files list
 	var files = fs.readdirSync(dirname).filter((filename) => {
 		return excludeFiles.indexOf(filename) < 0;
 	});
-	
-	files.forEach(callback)
+
+	//Generate loaders function
+	var loaders = files.map((filename) => {
+		return loader(filename);
+	});
+
+	return Promise.all(loaders);	
 } 

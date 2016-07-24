@@ -1,37 +1,20 @@
 "use strict";
-var http = require("http");
-var express = require("express");
-var mongoose = require("mongoose");
 
 //A simple wrapper of httpServer and express
 //For automatisation of starting a server (middleware, routing, lib, etc...)
+
+//Add color to console
+require("colors");
+
+var http = require("http");
+var express = require("express");
+var mongoose = require("mongoose");
 
 module.exports = class Server {
 	constructor(config) {
 		this.config = config;
 		
 		this.init();
-	}
-	
-	start(callback) {
-		//Start the http server
-		//Carefull, loading order is important !
-		
-		//Connect to mongo via mongoose
-		mongoose.connect(__Config.MONGOOSE_ADDRESS, __Config.MONGOOSE_OPTIONS || {});
-		
-		//load mongoose schemas in __Schemas
-		this.schemasLoader.load();
-		
-		//load ressources in __Ressources
-		this.ressourcesLoader.load();
-		
-		//load middlewares including routing
-		this.middlewareLoader.load();
-		
-		//Create and start http server
-		this.HttpServer = http.createServer(__App);
-		this.HttpServer.listen(__Config.PORT, __Config.IP_ADDRESS, callback);
 	}
 	
 	init() {
@@ -54,5 +37,26 @@ module.exports = class Server {
 		//Middlewares are use by Express to manage
 		var MiddlewareLoader = require(__Config.SERVER_MIDDLEWARES_LOADER_PATH);
 		this.middlewareLoader = new MiddlewareLoader();
+	}	
+	
+	start(callback) {
+		//Start the http server
+		//Carefull, loading order is important !
+		
+		//Connect to mongo via mongoose
+		mongoose.connect(__Config.MONGOOSE_ADDRESS, __Config.MONGOOSE_OPTIONS || {});
+		
+		//load mongoose schemas in __Schemas
+		this.schemasLoader.load();
+		
+		//load ressources in __Ressources
+		this.ressourcesLoader.load();
+		
+		//load middlewares including routing
+		this.middlewareLoader.load();
+		
+		//Create and start http server
+		this.HttpServer = http.createServer(__App);
+		this.HttpServer.listen(__Config.PORT, __Config.IP_ADDRESS, callback);
 	}
 }
