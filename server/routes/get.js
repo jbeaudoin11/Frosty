@@ -26,4 +26,7 @@ module.exports = [
 	
 	//Test
 	{"url" : "/test", "listeners" : [__Ressources.test.test]},
+	{"url" : "/test2", "listeners" : [function(req, res) {
+		res.send(Date.now())
+	}]},
 ]

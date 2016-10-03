@@ -29,6 +29,8 @@ exports.SERVER_METADATA_PATH = this.SERVER_PATH + "/metadata";
 exports.SERVER_ROUTES_PATH = this.SERVER_PATH + "/routes";
 exports.SERVER_ROUTES_LOADER_PATH = this.SERVER_ROUTES_PATH + "/_loader.js";
 
+exports.SERVER_JOBS_PATH = this.SERVER_PATH + "/jobs";
+
 exports.SERVER_RESSOURCES_PATH = this.SERVER_PATH + "/ressources";
 exports.SERVER_RESSOURCES_LOADER_PATH = this.SERVER_RESSOURCES_PATH + "/_loader.js";
 
@@ -39,6 +41,14 @@ exports.SERVER_MIDDLEWARES_LOADER_PATH = this.SERVER_MIDDLEWARES_PATH + "/_loade
 
 exports.SERVER_SCHEMAS_PATH = this.SERVER_PATH + "/schemas";
 exports.SERVER_SCHEMAS_LOADER_PATH = this.SERVER_SCHEMAS_PATH + "/_loader.js";
+
+//JOBS
+exports.JOBS = [ //ORDER IS IMPORTANT
+	{
+		"name"  : "example.js",
+		"params" : {},
+	},
+];
 
 //RESSOURCES
 exports.RESSOURCES_EXCLUDE_FILES = [
